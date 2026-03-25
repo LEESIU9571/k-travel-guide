@@ -3,33 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <title>Welcome to Korea</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #ff0000 0%, #0038a8 100%);
-      color: white;
+      font-family: Inter, Arial, sans-serif;
+      background: linear-gradient(135deg, rgba(255, 0, 0, 0.14) 0%, rgba(0, 56, 168, 0.14) 100%), #f8fafc;
+      color: #0f172a;
       min-height: 100vh;
-      padding: 2rem 1rem;
+      padding: 96px 1rem 2rem 1rem;
       box-sizing: border-box;
       overflow-x: hidden;
+    }
+
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(255, 255, 255, 0.78);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+      padding: 0.75rem 1rem;
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    .navbar-links {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .navbar-link {
+      color: #0f172a;
+      text-decoration: none;
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: rgba(15, 23, 42, 0.04);
+      transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .navbar-link:hover {
+      transform: translateY(-1px);
+      background: rgba(15, 23, 42, 0.06);
+      border-color: rgba(15, 23, 42, 0.22);
+    }
+
+    .scroll-target {
+      scroll-margin-top: 112px;
     }
 
     .container {
       text-align: center;
       padding: 20px 40px;
       border-radius: 16px;
-      background: rgba(0, 0, 0, 0.25);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.12);
       width: 100%;
       max-width: 900px;
       margin: 0 auto;
     }
 
     h1 {
-      font-size: 4rem;
+      font-size: 3.2rem;
       margin-bottom: 0.5rem;
-      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+      color: #0f172a;
     }
 
     h2 {
@@ -37,27 +93,28 @@
       font-weight: 300;
       margin-top: 0;
       margin-bottom: 1.5rem;
-      opacity: 0.9;
+      opacity: 0.85;
+      color: #334155;
     }
 
     .cta-button {
       display: inline-block;
       padding: 0.75rem 2rem;
       border-radius: 999px;
-      border: 2px solid white;
-      background: transparent;
+      border: 0;
+      background: linear-gradient(135deg, #ff2d55 0%, #2563eb 100%);
       color: white;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
-      transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+      transition: transform 0.1s ease, filter 0.15s ease;
+      box-shadow: 0 12px 26px rgba(37, 99, 235, 0.25);
     }
 
     .cta-button:hover {
-      background: white;
-      color: #c91024;
       transform: translateY(-1px);
+      filter: brightness(1.02);
     }
 
     .search-wrap {
@@ -71,20 +128,20 @@
       width: 100%;
       padding: 0.85rem 1rem;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.45);
-      background: rgba(0, 0, 0, 0.25);
-      color: white;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      background: rgba(255, 255, 255, 0.9);
+      color: #0f172a;
       font-size: 1rem;
       outline: none;
     }
 
     .search-input::placeholder {
-      color: rgba(255, 255, 255, 0.8);
+      color: rgba(15, 23, 42, 0.55);
     }
 
     .search-match {
-      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35) inset, 0 10px 28px rgba(0, 0, 0, 0.35);
-      border-color: rgba(255, 255, 255, 0.75);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25), 0 12px 30px rgba(37, 99, 235, 0.12);
+      border-color: rgba(37, 99, 235, 0.35);
     }
 
     .cities-section {
@@ -96,27 +153,30 @@
       font-size: 1.25rem;
       margin-bottom: 1rem;
       font-weight: 600;
+      color: #0f172a;
     }
 
     .cities-grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.1rem;
     }
 
     .city-card {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      padding: 1.15rem;
       cursor: pointer;
-      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+      color: #0f172a;
     }
 
     .city-card:hover {
-      background: rgba(255, 255, 255, 0.2);
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+      border-color: rgba(37, 99, 235, 0.25);
     }
 
     .city-name {
@@ -127,14 +187,14 @@
 
     .city-description {
       font-size: 0.95rem;
-      opacity: 0.95;
+      opacity: 0.85;
     }
 
     .hidden-gems-section {
       margin-top: 1.5rem;
       text-align: left;
-      background: rgba(8, 43, 30, 0.9);
-      border: 1px solid rgba(134, 239, 172, 0.35);
+      background: rgba(236, 253, 245, 0.65);
+      border: 1px solid rgba(22, 163, 74, 0.18);
       border-radius: 14px;
       padding: 1rem;
     }
@@ -143,46 +203,48 @@
       font-size: 1.2rem;
       font-weight: 700;
       margin-bottom: 0.8rem;
-      color: #bbf7d0;
+      color: #166534;
     }
 
     .hidden-gems-grid {
       display: grid;
-      gap: 0.8rem;
+      gap: 0.9rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
 
     .hidden-gem-card {
-      background: rgba(20, 83, 45, 0.55);
-      border: 1px solid rgba(187, 247, 208, 0.2);
-      border-radius: 10px;
-      padding: 0.8rem 0.9rem;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(22, 163, 74, 0.18);
+      border-radius: 14px;
+      padding: 0.95rem 1rem;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
     }
 
     .hidden-gem-name {
       font-size: 1rem;
       font-weight: 700;
-      color: #dcfce7;
+      color: #14532d;
       margin-bottom: 0.2rem;
     }
 
     .hidden-gem-location {
       font-size: 0.88rem;
-      color: #86efac;
+      color: #0f766e;
       margin-bottom: 0.35rem;
       font-weight: 600;
     }
 
     .hidden-gem-description {
       font-size: 0.92rem;
-      color: #f0fdf4;
-      opacity: 0.95;
+      color: #0f172a;
+      opacity: 0.85;
     }
 
     .transport-section {
       margin-top: 1.5rem;
       text-align: left;
-      background: rgba(10, 25, 68, 0.9);
-      border: 1px solid rgba(147, 197, 253, 0.35);
+      background: rgba(219, 234, 254, 0.65);
+      border: 1px solid rgba(37, 99, 235, 0.18);
       border-radius: 14px;
       padding: 1rem;
     }
@@ -191,31 +253,33 @@
       font-size: 1.2rem;
       font-weight: 700;
       margin-bottom: 0.8rem;
-      color: #bfdbfe;
+      color: #1d4ed8;
     }
 
     .transport-grid {
       display: grid;
-      gap: 0.8rem;
+      gap: 0.9rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
 
     .transport-card {
-      background: rgba(30, 58, 138, 0.45);
-      border: 1px solid rgba(191, 219, 254, 0.25);
-      border-radius: 10px;
-      padding: 0.85rem 0.9rem;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(37, 99, 235, 0.18);
+      border-radius: 14px;
+      padding: 1rem 1rem;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
     }
 
     .transport-name {
       font-size: 1rem;
       font-weight: 700;
-      color: #dbeafe;
+      color: #1e3a8a;
       margin-bottom: 0.35rem;
     }
 
     .transport-detail {
       font-size: 0.92rem;
-      color: #eff6ff;
+      color: #0f172a;
       margin-bottom: 0.3rem;
       line-height: 1.4;
     }
@@ -233,7 +297,7 @@
 
     .transport-steps li {
       font-size: 0.92rem;
-      color: #eff6ff;
+      color: #334155;
       line-height: 1.45;
       margin-bottom: 0.45rem;
     }
@@ -247,20 +311,24 @@
       font-size: 1.4rem;
       font-weight: 700;
       margin-bottom: 1rem;
+      color: #0f172a;
     }
 
     .attractions-grid {
       display: grid;
-      gap: 0.9rem;
+      gap: 1.1rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       margin-bottom: 1.25rem;
     }
 
     .attraction-card {
       text-align: left;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.28);
-      border-radius: 12px;
-      padding: 0.9rem 1rem;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(15, 23, 42, 0.12);
+      border-radius: 16px;
+      padding: 0.95rem 1rem;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+      color: #0f172a;
     }
 
     .attraction-name {
@@ -273,22 +341,50 @@
       display: inline-block;
       padding: 0.6rem 1.5rem;
       border-radius: 999px;
-      border: 2px solid white;
-      background: white;
-      color: #1f3a8a;
+      border: 0;
+      background: linear-gradient(135deg, #ff2d55 0%, #2563eb 100%);
+      color: white;
       font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
-      transition: transform 0.1s ease, opacity 0.2s ease;
+      transition: transform 0.1s ease, filter 0.15s ease;
+      box-shadow: 0 12px 26px rgba(37, 99, 235, 0.2);
     }
 
     .go-back-button:hover {
       transform: translateY(-1px);
-      opacity: 0.9;
+      filter: brightness(1.03);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 92px 0.9rem 1.5rem 0.9rem;
+      }
+
+      .container {
+        padding: 16px 14px;
+      }
+
+      h1 {
+        font-size: 2.35rem;
+      }
+
+      .navbar {
+        padding: 0.65rem 0.8rem;
+      }
     }
   </style>
 </head>
 <body>
+  <nav class="navbar" aria-label="Page navigation">
+    <div class="navbar-brand">Korea Travel Guide</div>
+    <div class="navbar-links">
+      <a class="navbar-link" href="#cities-section">Cities</a>
+      <a class="navbar-link" href="#hidden-gems-section">Hidden Gems</a>
+      <a class="navbar-link" href="#getting-around-section">Getting Around</a>
+    </div>
+  </nav>
+
   <div class="container">
     <h1>Welcome to Korea</h1>
     <h2>Discover Korea like a local - transport, hidden gems, and more</h2>
@@ -304,7 +400,7 @@
     </div>
     <button class="cta-button" id="start-planning-btn">Start Planning</button>
 
-    <div class="cities-section" id="cities-section">
+    <div class="cities-section scroll-target" id="cities-section">
       <div class="cities-header">Choose a city to explore</div>
       <div class="cities-grid">
         <div class="city-card" data-city="seoul">
@@ -321,7 +417,7 @@
         </div>
       </div>
 
-      <div class="hidden-gems-section">
+      <div class="hidden-gems-section scroll-target" id="hidden-gems-section">
         <div class="hidden-gems-title">Hidden Gems</div>
         <div class="hidden-gems-grid">
           <div class="hidden-gem-card">
@@ -342,7 +438,7 @@
         </div>
       </div>
 
-      <div class="transport-section">
+      <div class="transport-section scroll-target" id="getting-around-section">
         <div class="transport-title">Getting Around Korea</div>
         <div class="transport-grid">
           <div class="transport-card">
@@ -408,6 +504,7 @@
     const attractionsGrid = document.getElementById('attractions-grid');
     const goBackButton = document.getElementById('go-back-btn');
     const searchInput = document.getElementById('search-input');
+    const navLinks = document.querySelectorAll('.navbar a[href^="#"]');
 
     const attractionsByCity = {
       seoul: [
@@ -537,6 +634,23 @@
         const cityKey = card.dataset.city;
         const cityLabel = card.querySelector('.city-name').textContent;
         showAttractions(cityKey, cityLabel);
+      });
+    });
+
+    navLinks.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const targetId = link.getAttribute('href')?.slice(1);
+        if (!targetId) return;
+
+        // Ensure the city block is visible before scrolling to targets inside it.
+        citiesSection.style.display = 'block';
+        attractionsSection.style.display = 'none';
+
+        const target = document.getElementById(targetId);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       });
     });
 
