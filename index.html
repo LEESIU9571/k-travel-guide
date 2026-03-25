@@ -329,6 +329,19 @@
       border-radius: 14px;
       padding: 1rem;
       box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .wellness-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 44px rgba(15, 23, 42, 0.12);
+      border-color: rgba(217, 119, 6, 0.28);
+    }
+
+    .wellness-icon {
+      font-size: 2.3rem;
+      line-height: 1;
+      margin-bottom: 0.45rem;
     }
 
     .wellness-name {
@@ -546,31 +559,35 @@
         <div class="wellness-title">Wellness Experiences</div>
         <div class="wellness-grid">
           <div class="wellness-card">
+            <div class="wellness-icon" aria-hidden="true">🌿</div>
             <div class="wellness-name">Korean Traditional Medicine (한의학)</div>
-            <div class="wellness-description">Try a calming intro to herbal principles and body balance, tailored to common wellness goals.</div>
+            <div class="wellness-description">Learn how herbal and acupuncture-style care supports balance and recovery.</div>
             <div class="wellness-unique-title">Why it&rsquo;s unique to Korea</div>
-            <div class="wellness-unique">Rooted in centuries of practice, it focuses on harmony between body and nature.</div>
+            <div class="wellness-unique">It blends centuries of tradition with diagnosis based on symptom patterns.</div>
           </div>
 
           <div class="wellness-card">
+            <div class="wellness-icon" aria-hidden="true">🛁</div>
             <div class="wellness-name">Jjimjilbang (찜질방)</div>
-            <div class="wellness-description">Relax in a Korean bathhouse with warm rooms, spa rituals, and a friendly community vibe.</div>
+            <div class="wellness-description">Unwind in sauna-style rooms and soak in warm bathing rituals.</div>
             <div class="wellness-unique-title">Why it&rsquo;s unique to Korea</div>
-            <div class="wellness-unique">It&rsquo;s more than a bath: it&rsquo;s a full wellness experience with sauna-style comfort and rest areas.</div>
+            <div class="wellness-unique">It&rsquo;s a community wellness culture you don&rsquo;t get in most other spa styles.</div>
           </div>
 
           <div class="wellness-card">
+            <div class="wellness-icon" aria-hidden="true">🏯</div>
             <div class="wellness-name">Temple Stay</div>
-            <div class="wellness-description">Join a peaceful schedule of meditation, simple meals, and nature walks near traditional temple grounds.</div>
+            <div class="wellness-description">Try meditation, simple meals, and quiet walks inside a working temple.</div>
             <div class="wellness-unique-title">Why it&rsquo;s unique to Korea</div>
-            <div class="wellness-unique">You practice mindfulness in a living Buddhist environment shaped by Korean tradition.</div>
+            <div class="wellness-unique">You live daily Buddhist routines in a living Korean temple environment.</div>
           </div>
 
           <div class="wellness-card">
+            <div class="wellness-icon" aria-hidden="true">💆</div>
             <div class="wellness-name">K-Beauty Skincare Tour</div>
-            <div class="wellness-description">Discover skin-care routines and gentle treatments from local beauty shops and skincare studios.</div>
+            <div class="wellness-description">Get a guided tour of clinic and shop routines for glowing skin.</div>
             <div class="wellness-unique-title">Why it&rsquo;s unique to Korea</div>
-            <div class="wellness-unique">Korea combines science and nature with products and methods loved worldwide.</div>
+            <div class="wellness-unique">Korea pairs beauty science with gentle ingredients and fast-tested methods.</div>
           </div>
         </div>
       </div>
