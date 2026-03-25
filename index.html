@@ -301,6 +301,63 @@
       margin-bottom: 0.45rem;
     }
 
+    .wellness-section {
+      margin-top: 1.5rem;
+      text-align: left;
+      background: rgba(255, 237, 213, 0.75);
+      border: 1px solid rgba(217, 119, 6, 0.18);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+
+    .wellness-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 0.9rem;
+      color: #9a3412;
+    }
+
+    .wellness-grid {
+      display: grid;
+      gap: 0.9rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .wellness-card {
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(217, 119, 6, 0.15);
+      border-radius: 14px;
+      padding: 1rem;
+      box-shadow: 0 10px 26px rgba(15, 23, 42, 0.06);
+    }
+
+    .wellness-name {
+      font-size: 1.02rem;
+      font-weight: 800;
+      margin-bottom: 0.35rem;
+      color: #9a3412;
+    }
+
+    .wellness-description {
+      font-size: 0.92rem;
+      color: #4b5563;
+      line-height: 1.45;
+      margin-bottom: 0.7rem;
+    }
+
+    .wellness-unique-title {
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #7c2d12;
+      margin-bottom: 0.25rem;
+    }
+
+    .wellness-unique {
+      font-size: 0.92rem;
+      color: #334155;
+      line-height: 1.45;
+    }
+
     .attractions-section {
       margin-top: 2rem;
       display: none;
@@ -385,8 +442,8 @@
   </nav>
 
   <div class="container">
-    <h1>Welcome to Korea</h1>
-    <h2>Discover Korea like a local - transport, hidden gems, and more</h2>
+    <h1>WellKorea</h1>
+    <h2>Japan heals your eyes. Korea heals your body and soul.</h2>
 
     <div class="search-wrap">
       <input
@@ -484,6 +541,39 @@
           </div>
         </div>
       </div>
+
+      <div class="wellness-section scroll-target" id="wellness-experiences-section">
+        <div class="wellness-title">Wellness Experiences</div>
+        <div class="wellness-grid">
+          <div class="wellness-card">
+            <div class="wellness-name">Korean Traditional Medicine (한의학)</div>
+            <div class="wellness-description">Try a calming intro to herbal principles and body balance, tailored to common wellness goals.</div>
+            <div class="wellness-unique-title">Why it&rsquo;s unique to Korea</div>
+            <div class="wellness-unique">Rooted in centuries of practice, it focuses on harmony between body and nature.</div>
+          </div>
+
+          <div class="wellness-card">
+            <div class="wellness-name">Jjimjilbang (찜질방)</div>
+            <div class="wellness-description">Relax in a Korean bathhouse with warm rooms, spa rituals, and a friendly community vibe.</div>
+            <div class="wellness-unique-title">Why it&rsquo;s unique to Korea</div>
+            <div class="wellness-unique">It&rsquo;s more than a bath: it&rsquo;s a full wellness experience with sauna-style comfort and rest areas.</div>
+          </div>
+
+          <div class="wellness-card">
+            <div class="wellness-name">Temple Stay</div>
+            <div class="wellness-description">Join a peaceful schedule of meditation, simple meals, and nature walks near traditional temple grounds.</div>
+            <div class="wellness-unique-title">Why it&rsquo;s unique to Korea</div>
+            <div class="wellness-unique">You practice mindfulness in a living Buddhist environment shaped by Korean tradition.</div>
+          </div>
+
+          <div class="wellness-card">
+            <div class="wellness-name">K-Beauty Skincare Tour</div>
+            <div class="wellness-description">Discover skin-care routines and gentle treatments from local beauty shops and skincare studios.</div>
+            <div class="wellness-unique-title">Why it&rsquo;s unique to Korea</div>
+            <div class="wellness-unique">Korea combines science and nature with products and methods loved worldwide.</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="attractions-section" id="attractions-section">
@@ -498,6 +588,7 @@
     const citiesSection = document.getElementById('cities-section');
     const cityCards = document.querySelectorAll('.city-card');
     const hiddenGemCards = document.querySelectorAll('.hidden-gem-card');
+    const wellnessCards = document.querySelectorAll('.wellness-card');
     const attractionsSection = document.getElementById('attractions-section');
     const attractionsTitle = document.getElementById('attractions-title');
     const attractionsGrid = document.getElementById('attractions-grid');
@@ -607,6 +698,26 @@
         const location = card.querySelector('.hidden-gem-location')?.textContent || '';
         const desc = card.querySelector('.hidden-gem-description')?.textContent || '';
         const searchable = normalize(`${name} ${location} ${desc}`);
+
+        if (searchable.includes(q)) {
+          card.style.display = '';
+          card.classList.add('search-match');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      wellnessCards.forEach((card) => {
+        card.classList.remove('search-match');
+        if (!q) {
+          card.style.display = '';
+          return;
+        }
+
+        const name = card.querySelector('.wellness-name')?.textContent || '';
+        const desc = card.querySelector('.wellness-description')?.textContent || '';
+        const unique = card.querySelector('.wellness-unique')?.textContent || '';
+        const searchable = normalize(`${name} ${desc} ${unique}`);
 
         if (searchable.includes(q)) {
           card.style.display = '';
