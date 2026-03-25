@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Welcome to Korea</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff0000 0%, #0038a8 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+
+    .container {
+      text-align: center;
+      padding: 20px 40px;
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+
+    .cta-button {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border-radius: 999px;
+      border: 2px solid white;
+      background: transparent;
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.1s ease;
+    }
+
+    .cta-button:hover {
+      background: white;
+      color: #c91024;
+      transform: translateY(-1px);
+    }
+
+    .search-wrap {
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto 1rem auto;
+      text-align: center;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.45);
+      background: rgba(0, 0, 0, 0.25);
+      color: white;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    .search-input::placeholder {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .search-match {
+      box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35) inset, 0 10px 28px rgba(0, 0, 0, 0.35);
+      border-color: rgba(255, 255, 255, 0.75);
+    }
+
+    .cities-section {
+      margin-top: 2rem;
+      display: none;
+    }
+
+    .cities-header {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    .cities-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .city-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .city-card:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .city-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .city-description {
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
+
+    .hidden-gems-section {
+      margin-top: 1.5rem;
+      text-align: left;
+      background: rgba(8, 43, 30, 0.9);
+      border: 1px solid rgba(134, 239, 172, 0.35);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+
+    .hidden-gems-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: #bbf7d0;
+    }
+
+    .hidden-gems-grid {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .hidden-gem-card {
+      background: rgba(20, 83, 45, 0.55);
+      border: 1px solid rgba(187, 247, 208, 0.2);
+      border-radius: 10px;
+      padding: 0.8rem 0.9rem;
+    }
+
+    .hidden-gem-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #dcfce7;
+      margin-bottom: 0.2rem;
+    }
+
+    .hidden-gem-location {
+      font-size: 0.88rem;
+      color: #86efac;
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+
+    .hidden-gem-description {
+      font-size: 0.92rem;
+      color: #f0fdf4;
+      opacity: 0.95;
+    }
+
+    .transport-section {
+      margin-top: 1.5rem;
+      text-align: left;
+      background: rgba(10, 25, 68, 0.9);
+      border: 1px solid rgba(147, 197, 253, 0.35);
+      border-radius: 14px;
+      padding: 1rem;
+    }
+
+    .transport-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      color: #bfdbfe;
+    }
+
+    .transport-grid {
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .transport-card {
+      background: rgba(30, 58, 138, 0.45);
+      border: 1px solid rgba(191, 219, 254, 0.25);
+      border-radius: 10px;
+      padding: 0.85rem 0.9rem;
+    }
+
+    .transport-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #dbeafe;
+      margin-bottom: 0.35rem;
+    }
+
+    .transport-detail {
+      font-size: 0.92rem;
+      color: #eff6ff;
+      margin-bottom: 0.3rem;
+      line-height: 1.4;
+    }
+
+    .transport-detail:last-child {
+      margin-bottom: 0;
+    }
+
+    .attractions-section {
+      margin-top: 2rem;
+      display: none;
+    }
+
+    .attractions-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .attractions-grid {
+      display: grid;
+      gap: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .attraction-card {
+      text-align: left;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+    }
+
+    .attraction-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .go-back-button {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border-radius: 999px;
+      border: 2px solid white;
+      background: white;
+      color: #1f3a8a;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.1s ease, opacity 0.2s ease;
+    }
+
+    .go-back-button:hover {
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Korea</h1>
+    <h2>Discover Korea like a local - transport, hidden gems, and more</h2>
+
+    <div class="search-wrap">
+      <input
+        id="search-input"
+        class="search-input"
+        type="text"
+        placeholder="Search cities or hidden gems (e.g., beach, temple)"
+        autocomplete="off"
+      />
+    </div>
+    <button class="cta-button" id="start-planning-btn">Start Planning</button>
+
+    <div class="cities-section" id="cities-section">
+      <div class="cities-header">Choose a city to explore</div>
+      <div class="cities-grid">
+        <div class="city-card" data-city="seoul">
+          <div class="city-name">Seoul</div>
+          <div class="city-description">A vibrant mix of modern skyscrapers, royal palaces, and bustling street markets.</div>
+        </div>
+        <div class="city-card" data-city="busan">
+          <div class="city-name">Busan</div>
+          <div class="city-description">A coastal city famous for its beaches, fresh seafood, and scenic mountain temples.</div>
+        </div>
+        <div class="city-card" data-city="jeju">
+          <div class="city-name">Jeju</div>
+          <div class="city-description">A volcanic island paradise known for its lava tubes, waterfalls, and tranquil beaches.</div>
+        </div>
+      </div>
+
+      <div class="hidden-gems-section">
+        <div class="hidden-gems-title">Hidden Gems</div>
+        <div class="hidden-gems-grid">
+          <div class="hidden-gem-card">
+            <div class="hidden-gem-name">Boseong Green Tea Fields</div>
+            <div class="hidden-gem-location">Location: Boseong, Jeollanam-do</div>
+            <div class="hidden-gem-description">Rolling tea terraces create a peaceful landscape where you can sip fresh tea and walk scenic paths.</div>
+          </div>
+          <div class="hidden-gem-card">
+            <div class="hidden-gem-name">Juknokwon Bamboo Forest</div>
+            <div class="hidden-gem-location">Location: Damyang, Jeollanam-do</div>
+            <div class="hidden-gem-description">A quiet bamboo sanctuary with cool shaded trails and a calming atmosphere away from busy tourist spots.</div>
+          </div>
+          <div class="hidden-gem-card">
+            <div class="hidden-gem-name">Ulleungdo Coastal Cliff Road</div>
+            <div class="hidden-gem-location">Location: Ulleungdo Island, Gyeongsangbuk-do</div>
+            <div class="hidden-gem-description">Dramatic ocean cliffs, crystal-blue water, and remote island views make this a rare and unforgettable escape.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="transport-section">
+        <div class="transport-title">Getting Around Korea</div>
+        <div class="transport-grid">
+          <div class="transport-card">
+            <div class="transport-name">Subway</div>
+            <div class="transport-detail">Use the subway by tapping in and tapping out at the gate with your T-money card.</div>
+            <div class="transport-detail">Buy a T-money card at convenience stores like CU or GS25, then add money at station machines.</div>
+            <div class="transport-detail">Tip for foreigners: Download Naver Map or Kakao Metro because station names are shown in English.</div>
+          </div>
+          <div class="transport-card">
+            <div class="transport-name">Bus</div>
+            <div class="transport-detail">Board from the front door, tap your T-money card, and tap again when you get off.</div>
+            <div class="transport-detail">The same T-money card works on city buses, and transfer discounts apply when you tap correctly.</div>
+            <div class="transport-detail">Tip for foreigners: Press the stop bell one stop early so you do not miss your stop.</div>
+          </div>
+          <div class="transport-card">
+            <div class="transport-name">KTX (High Speed Train)</div>
+            <div class="transport-detail">Use KTX for fast travel between major cities by booking a seat online or at the station.</div>
+            <div class="transport-detail">T-money is not used for KTX tickets, so buy a separate KTX ticket in advance.</div>
+            <div class="transport-detail">Tip for foreigners: Arrive 15 minutes early to find the right platform and car number without stress.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="attractions-section" id="attractions-section">
+      <div class="attractions-title" id="attractions-title"></div>
+      <div class="attractions-grid" id="attractions-grid"></div>
+      <button class="go-back-button" id="go-back-btn">Go Back</button>
+    </div>
+  </div>
+
+  <script>
+    const startButton = document.getElementById('start-planning-btn');
+    const citiesSection = document.getElementById('cities-section');
+    const cityCards = document.querySelectorAll('.city-card');
+    const hiddenGemCards = document.querySelectorAll('.hidden-gem-card');
+    const attractionsSection = document.getElementById('attractions-section');
+    const attractionsTitle = document.getElementById('attractions-title');
+    const attractionsGrid = document.getElementById('attractions-grid');
+    const goBackButton = document.getElementById('go-back-btn');
+    const searchInput = document.getElementById('search-input');
+
+    const attractionsByCity = {
+      seoul: [
+        {
+          name: 'Gyeongbokgung Palace',
+          description: 'A grand Joseon-era palace known for traditional architecture and colorful guard ceremonies.'
+        },
+        {
+          name: 'N Seoul Tower',
+          description: 'A panoramic viewpoint on Namsan Mountain with sweeping city views day and night.'
+        },
+        {
+          name: 'Bukchon Hanok Village',
+          description: 'A charming neighborhood of preserved hanok homes and narrow alleys full of Korean culture.'
+        }
+      ],
+      busan: [
+        {
+          name: 'Haeundae Beach',
+          description: 'Busan\'s most famous beach, perfect for ocean views, festivals, and lively boardwalks.'
+        },
+        {
+          name: 'Gamcheon Culture Village',
+          description: 'A colorful hillside village filled with murals, art installations, and cozy cafes.'
+        },
+        {
+          name: 'Haedong Yonggungsa Temple',
+          description: 'A striking seaside temple set on rocky cliffs with dramatic views of the East Sea.'
+        }
+      ],
+      jeju: [
+        {
+          name: 'Hallasan National Park',
+          description: 'A scenic volcanic mountain park with hiking trails, forests, and crater landscapes.'
+        },
+        {
+          name: 'Seongsan Ilchulbong',
+          description: 'A UNESCO-listed tuff cone famous for sunrise hikes and stunning coastal vistas.'
+        },
+        {
+          name: 'Manjanggul Lava Tube',
+          description: 'One of the world\'s longest lava caves, showcasing Jeju\'s unique volcanic geology.'
+        }
+      ]
+    };
+
+    function showAttractions(cityKey, cityLabel) {
+      const attractions = attractionsByCity[cityKey];
+      attractionsTitle.textContent = `${cityLabel} Attractions`;
+      attractionsGrid.innerHTML = '';
+
+      attractions.forEach((attraction) => {
+        const card = document.createElement('div');
+        card.className = 'attraction-card';
+        card.innerHTML = `
+          <div class="attraction-name">${attraction.name}</div>
+          <div>${attraction.description}</div>
+        `;
+        attractionsGrid.appendChild(card);
+      });
+
+      citiesSection.style.display = 'none';
+      attractionsSection.style.display = 'block';
+      attractionsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function normalize(text) {
+      return (text || '').toString().toLowerCase();
+    }
+
+    function applySearchFilter() {
+      const q = normalize(searchInput.value.trim());
+
+      cityCards.forEach((card) => {
+        card.classList.remove('search-match');
+        if (!q) {
+          card.style.display = '';
+          return;
+        }
+
+        const name = card.querySelector('.city-name')?.textContent || '';
+        const desc = card.querySelector('.city-description')?.textContent || '';
+        const searchable = normalize(`${name} ${desc}`);
+
+        if (searchable.includes(q)) {
+          card.style.display = '';
+          card.classList.add('search-match');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      hiddenGemCards.forEach((card) => {
+        card.classList.remove('search-match');
+        if (!q) {
+          card.style.display = '';
+          return;
+        }
+
+        const name = card.querySelector('.hidden-gem-name')?.textContent || '';
+        const location = card.querySelector('.hidden-gem-location')?.textContent || '';
+        const desc = card.querySelector('.hidden-gem-description')?.textContent || '';
+        const searchable = normalize(`${name} ${location} ${desc}`);
+
+        if (searchable.includes(q)) {
+          card.style.display = '';
+          card.classList.add('search-match');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    startButton.addEventListener('click', () => {
+      citiesSection.style.display = 'block';
+      attractionsSection.style.display = 'none';
+      citiesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', applySearchFilter);
+      applySearchFilter();
+    }
+
+    cityCards.forEach((card) => {
+      card.addEventListener('click', () => {
+        const cityKey = card.dataset.city;
+        const cityLabel = card.querySelector('.city-name').textContent;
+        showAttractions(cityKey, cityLabel);
+      });
+    });
+
+    goBackButton.addEventListener('click', () => {
+      attractionsSection.style.display = 'none';
+      citiesSection.style.display = 'block';
+      citiesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  </script>
+</body>
+</html>
