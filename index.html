@@ -400,6 +400,85 @@
       line-height: 1.45;
     }
 
+    .book-button {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      border: none;
+      background: #ff8c42;
+      color: white;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s ease, background 0.15s ease;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 12px rgba(255, 140, 66, 0.3);
+    }
+
+    .book-button:hover {
+      transform: translateY(-1px);
+      background: #ff7a2a;
+    }
+
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .popup-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      max-width: 400px;
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .popup-overlay.active .popup-content {
+      transform: scale(1);
+    }
+
+    .popup-message {
+      font-size: 1.1rem;
+      color: #0f172a;
+      margin-bottom: 1.5rem;
+    }
+
+    .popup-close-button {
+      padding: 0.6rem 1.5rem;
+      border-radius: 25px;
+      border: none;
+      background: linear-gradient(135deg, #ff2d55 0%, #2563eb 100%);
+      color: white;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.1s ease, filter 0.15s ease;
+    }
+
+    .popup-close-button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
     .attractions-section {
       margin-top: 2rem;
       display: none;
@@ -601,6 +680,7 @@
   <div class="wellness-description">Learn how herbal and acupuncture-style care supports balance and recovery.</div>
   <div class="wellness-unique-title">Why it's unique to Korea</div>
   <div class="wellness-unique">It blends centuries of tradition with diagnosis based on symptom patterns.</div>
+  <button class="book-button" data-experience="Korean Traditional Medicine">Book This Experience</button>
 </div>
 
 <div class="wellness-card">
@@ -610,6 +690,7 @@
   <div class="wellness-description">Unwind in sauna-style rooms and soak in warm bathing rituals.</div>
   <div class="wellness-unique-title">Why it's unique to Korea</div>
   <div class="wellness-unique">It's a community wellness culture you don't get in most other spa styles.</div>
+  <button class="book-button" data-experience="Jjimjilbang">Book This Experience</button>
 </div>
 
 <div class="wellness-card">
@@ -619,6 +700,7 @@
   <div class="wellness-description">Try meditation, simple meals, and quiet walks inside a working temple.</div>
   <div class="wellness-unique-title">Why it's unique to Korea</div>
   <div class="wellness-unique">You live daily Buddhist routines in a living Korean temple environment.</div>
+  <button class="book-button" data-experience="Temple Stay">Book This Experience</button>
 </div>
 
 <div class="wellness-card">
@@ -628,6 +710,7 @@
   <div class="wellness-description">Get a guided tour of clinic and shop routines for glowing skin.</div>
   <div class="wellness-unique-title">Why it's unique to Korea</div>
   <div class="wellness-unique">Korea pairs beauty science with gentle ingredients and fast-tested methods.</div>
+  <button class="book-button" data-experience="K-Beauty Skincare Tour">Book This Experience</button>
 </div>
         </div>
       </div>
@@ -637,6 +720,13 @@
       <div class="attractions-title" id="attractions-title"></div>
       <div class="attractions-grid" id="attractions-grid"></div>
       <button class="go-back-button" id="go-back-btn">Go Back</button>
+    </div>
+
+    <div class="popup-overlay" id="booking-popup">
+      <div class="popup-content">
+        <div class="popup-message">Booking feature coming soon! Stay tuned.</div>
+        <button class="popup-close-button" id="popup-close">Got it!</button>
+      </div>
     </div>
   </div>
 
@@ -825,6 +915,39 @@
       attractionsSection.style.display = 'none';
       citiesSection.style.display = 'block';
       citiesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    // Booking popup functionality
+    const bookingPopup = document.getElementById('booking-popup');
+    const popupCloseButton = document.getElementById('popup-close');
+    const bookButtons = document.querySelectorAll('.book-button');
+
+    function showBookingPopup() {
+      bookingPopup.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function hideBookingPopup() {
+      bookingPopup.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    bookButtons.forEach(button => {
+      button.addEventListener('click', showBookingPopup);
+    });
+
+    popupCloseButton.addEventListener('click', hideBookingPopup);
+
+    bookingPopup.addEventListener('click', (e) => {
+      if (e.target === bookingPopup) {
+        hideBookingPopup();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && bookingPopup.classList.contains('active')) {
+        hideBookingPopup();
+      }
     });
   </script>
 </body>
